@@ -15,10 +15,15 @@ var CHECK_TIME = ['12:00', '13:00', '14:00'];
 var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var HOTEL_PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 
+var mapPins = document.querySelector('.map__pins');
+var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+
+// случайное число
 var getRandomNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
+// случайный массив
 var getRandomArray = function (arr) {
   var randomArray = [];
   for (var i = 0; i < getRandomNumber(1, arr.length - 1); i++) {
@@ -28,6 +33,7 @@ var getRandomArray = function (arr) {
   return randomArray;
 };
 
+// случайное объявление
 var createAds = function (num) {
   var ads = [];
 
@@ -61,12 +67,7 @@ var createAds = function (num) {
   return ads;
 };
 
-var hotelMap = document.querySelector('.map');
-hotelMap.classList.remove('map--faded');
-
-var mapPins = document.querySelector('.map__pins');
-var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
-
+// отрисовка метки
 var renderPin = function (item) {
   var pinElement = mapPinTemplate.cloneNode(true);
   var pinImg = pinElement.querySelector('img');
@@ -80,13 +81,20 @@ var renderPin = function (item) {
   return pinElement;
 };
 
-var fragment = document.createDocumentFragment();
 var renderPins = function (arr) {
+  var fragment = document.createDocumentFragment();
   for (var i = 0; i < arr.length; i++) {
     fragment.appendChild(renderPin(arr[i]));
   }
   mapPins.appendChild(fragment);
 };
 
+var prepareMap = function () {
+  var hotelMap = document.querySelector('.map');
+  hotelMap.classList.remove('map--faded');
+};
+
 var pins = createAds(ADS_COUNT);
 renderPins(pins);
+prepareMap();
+
