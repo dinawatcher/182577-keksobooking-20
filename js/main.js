@@ -41,11 +41,30 @@ var getRandomNumber = function (min, max) {
 // случайный массив
 var getRandomArray = function (arr) {
   var randomArray = [];
+
   for (var i = 0; i < getRandomNumber(1, arr.length - 1); i++) {
-    randomArray[i] = arr[getRandomNumber(0, arr.length - 1)];
+    var arrayItem = arr[getRandomNumber(0, arr.length - 1)];
+
+    if (randomArray.indexOf(arrayItem) !== -1) {
+      i--;
+    } else {
+      randomArray.push(arrayItem);
+    }
   }
 
   return randomArray;
+};
+
+var getTypes = function (arr) {
+  var typeItem = Object.keys(arr)[getRandomNumber(0, Object.keys(arr).length - 1)];
+
+  return typeItem;
+};
+
+var getFeatures = function (arr) {
+  var featuresArray = getRandomArray(Object.keys(arr));
+
+  return featuresArray;
 };
 
 // случайное объявление
@@ -64,12 +83,12 @@ var createAds = function (num) {
         'title': 'Заголовок объявления',
         'address': locationX + ', ' + locationY,
         'price': getRandomNumber(MIN_PRICE, MAX_PRICE),
-        'type': Object.keys(HOTEL_TYPES)[getRandomNumber(0, Object.keys(HOTEL_TYPES).length - 1)],
+        'type': getTypes(HOTEL_TYPES),
         'rooms': getRandomNumber(MIN_ROOMS, MAX_ROOMS),
         'guests': getRandomNumber(MIN_GUESTS, MAX_GUESTS),
         'checkin': CHECK_TIME[getRandomNumber(0, CHECK_TIME.length - 1)],
         'checkout': CHECK_TIME[getRandomNumber(0, CHECK_TIME.length - 1)],
-        'features': getRandomArray(Object.keys(FEATURES)),
+        'features': getFeatures(FEATURES),
         'description': 'Описание (не обязательно)',
         'photos': getRandomArray(HOTEL_PHOTOS),
       },
