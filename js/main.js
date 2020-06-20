@@ -19,14 +19,7 @@ var HOTEL_TYPES = {
   bungalo: 'Бунгало',
 };
 var CHECK_TIME = ['12:00', '13:00', '14:00'];
-var FEATURES = {
-  wifi: 'Wi-Fi',
-  dishwasher: 'Посудомоечная машина',
-  parking: 'Парковка',
-  washer: 'Стиральная машина',
-  elevator: 'Лифт',
-  conditioner: 'Кондиционер',
-};
+var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var HOTEL_PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 
 var hotelMap = document.querySelector('.map');
@@ -52,17 +45,15 @@ var getRandomNumber = function (min, max) {
 
 // случайный массив
 var getRandomArray = function (arr) {
-  var randomArray = [];
-
+  var unfilteredArray = [];
   for (var i = 0; i < getRandomNumber(1, arr.length - 1); i++) {
     var arrayItem = arr[getRandomNumber(0, arr.length - 1)];
-
-    if (randomArray.indexOf(arrayItem) !== -1) {
-      i--;
-    } else {
-      randomArray.push(arrayItem);
-    }
+    unfilteredArray.push(arrayItem);
   }
+
+  var randomArray = unfilteredArray.filter(function (item, pos) {
+    return unfilteredArray.indexOf(item) === pos;
+  });
 
   return randomArray;
 };
@@ -75,7 +66,7 @@ var pinMainLocationYActive = Math.round(parseInt(mapPinMain.style.top, 10)) + PI
 
 var disableInputs = function (arr) {
   for (var i = 0; i < arr.length; i++) {
-    arr[i].setAttribute('disabled', '');
+    arr[i].setAttribute('disabled', 'true');
   }
 };
 
@@ -91,7 +82,7 @@ var disabledOnLoad = function () {
   disableInputs(formFieldsets);
   disableInputs(adFormSelects);
   disableInputs(filterFormSelects);
-  address.value = pinMainLocationX + ', ' + pinMainLocationY;
+  address.value = pinMainLocationX + ',' + ' ' + pinMainLocationY;
 };
 disabledOnLoad();
 
@@ -104,7 +95,7 @@ var getTypes = function (arr) {
 
 // получение случайных неповторяющихся удобств
 var getFeatures = function (arr) {
-  var featuresArray = getRandomArray(Object.keys(arr));
+  var featuresArray = getRandomArray(arr);
 
   return featuresArray;
 };
