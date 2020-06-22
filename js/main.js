@@ -66,7 +66,7 @@ var pinMainLocationYActive = Math.round(parseInt(mapPinMain.style.top, 10)) + PI
 
 var disableInputs = function (arr) {
   for (var i = 0; i < arr.length; i++) {
-    arr[i].setAttribute('disabled', 'true');
+    arr[i].disabled = true;
   }
 };
 
@@ -74,14 +74,14 @@ var disableInputs = function (arr) {
 var activateInputs = function (arr) {
   adForm.classList.remove('ad-form--disabled');
   for (var i = 0; i < arr.length; i++) {
-    arr[i].removeAttribute('disabled', '');
+    arr[i].disabled = false;
   }
 };
 
 var disabledOnLoad = function () {
-  disableInputs(formFieldsets);
-  disableInputs(adFormSelects);
-  disableInputs(filterFormSelects);
+  [formFieldsets, adFormSelects, filterFormSelects].forEach(function (inputs) {
+    disableInputs(inputs);
+  });
   address.value = pinMainLocationX + ',' + ' ' + pinMainLocationY;
 };
 disabledOnLoad();
