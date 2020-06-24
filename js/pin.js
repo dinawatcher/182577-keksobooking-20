@@ -1,0 +1,31 @@
+'use strict';
+
+(function () {
+  var mapPins = document.querySelector('.map__pins');
+  var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+
+  var renderPin = function (item) {
+    var pinElement = mapPinTemplate.cloneNode(true);
+    var pinImg = pinElement.querySelector('img');
+
+    pinImg.setAttribute('src', item.author.avatar);
+    pinImg.setAttribute('alt', item.offer.title);
+
+    pinElement.style.left = item.location.x - (pinImg.width / 2) + 'px';
+    pinElement.style.top = item.location.y - pinImg.height + 'px';
+
+    return pinElement;
+  };
+
+  var renderPins = function (arr) {
+    var fragment = document.createDocumentFragment();
+    for (var i = 0; i < arr.length; i++) {
+      fragment.appendChild(renderPin(arr[i]));
+    }
+    mapPins.appendChild(fragment);
+  };
+
+  window.pin = {
+    renderPins: renderPins,
+  };
+})();
