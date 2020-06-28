@@ -14,15 +14,30 @@
     pinElement.style.left = item.location.x - (pinImg.width / 2) + 'px';
     pinElement.style.top = item.location.y - pinImg.height + 'px';
 
+    pinElement.addEventListener('keydown',function (evt) {
+      if (evt.code === 'Enter') {
+        window.card.createCard;
+      }
+    });
+
     return pinElement;
   };
 
   var renderPins = function (arr) {
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < arr.length; i++) {
-      fragment.appendChild(renderPin(arr[i]));
+      var ad = window.offer.ads[i];
+      var pin = renderPin(ad);
+      fragment.appendChild(pin);
+      addPinHandlers(pin, ad);
     }
     mapPins.appendChild(fragment);
+  };
+
+  var addPinHandlers = function (pin, ad) {
+    pin.addEventListener('click', function () {
+      window.card.createCard(ad);
+    });
   };
 
   window.pin = {

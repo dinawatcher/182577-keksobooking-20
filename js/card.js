@@ -2,6 +2,9 @@
 
 (function () {
   var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
+  var mapFilters = document.querySelector('.map__filters-container');
+  var cardElement = null;
+
 
   var renderPhotos = function (container, photos) {
     container.innerHTML = '';
@@ -29,49 +32,70 @@
     }
   };
 
-  var createCard = function (items) {
-    var cardElement = cardTemplate.cloneNode(true);
+  var createCard = function (ad) {
+    popupRemove();
+
+    cardElement = cardTemplate.cloneNode(true);
     var photosBlock = cardElement.querySelector('.popup__photos');
     var featuresBlock = cardElement.querySelector('.popup__features');
 
-    var card = items[0];
-
     var getRooms = function () {
-      if (card.offer.rooms === 1) {
-        return card.offer.rooms + ' комната для ';
-      } else if (card.offer.rooms > 1 && card.offer.rooms < 5) {
-        return card.offer.rooms + ' комнаты для ';
+      if (ad.offer.rooms === 1) {
+        return ad.offer.rooms + ' комната для ';
+      } else if (ad.offer.rooms > 1 && ad.offer.rooms < 5) {
+        return ad.offer.rooms + ' комнаты для ';
       } else {
-        return card.offer.rooms + ' комнат для ';
+        return ad.offer.rooms + ' комнат для ';
       }
     };
 
     var getGuests = function () {
-      if (card.offer.guests === 0) {
+      if (ad.offer.guests === 0) {
         return cardElement.querySelector('.popup__text--capacity').classList.add('hidden');
-      } else if (card.offer.guests === 1) {
-        return card.offer.guests + ' гостя';
+      } else if (ad.offer.guests === 1) {
+        return ad.offer.guests + ' гостя';
       } else {
-        return card.offer.guests + ' гостей';
+        return ad.offer.guests + ' гостей';
       }
     };
 
-    cardElement.querySelector('.popup__title').textContent = card.offer.title;
-    cardElement.querySelector('.popup__text--address').textContent = card.offer.address;
-    cardElement.querySelector('.popup__text--price').innerHTML = card.offer.price + '&#x20bd;<span>/ночь</span>';
-    cardElement.querySelector('.popup__type').textContent = window.offer.hotels[card.offer.type];
-    cardElement.querySelector('.popup__text--capacity').textContent = getRooms(card) + getGuests(card);
-    cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + card.offer.checkin + ', выезд до ' + card.offer.checkout;
-    cardElement.querySelector('.popup__description').textContent = card.offer.description;
-    cardElement.querySelector('.popup__avatar').src = card.author.avatar;
+    cardElement.querySelector('.popup__title').textContent = ad.offer.title;
+    cardElement.querySelector('.popup__text--address').textContent = ad.offer.address;
+    cardElement.querySelector('.popup__text--price').innerHTML = ad.offer.price + '&#x20bd;<span>/ночь</span>';
+    cardElement.querySelector('.popup__type').textContent = window.offer.hotels[ad.offer.type];
+    cardElement.querySelector('.popup__text--capacity').textContent = getRooms(ad) + getGuests(ad);
+    cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + ad.offer.checkin + ', выезд до ' + ad.offer.checkout;
+    cardElement.querySelector('.popup__description').textContent = ad.offer.description;
+    cardElement.querySelector('.popup__avatar').src = ad.author.avatar;
 
-    renderPhotos(photosBlock, card.offer.photos);
-    renderFeatures(featuresBlock, card.offer.features);
+    renderPhotos(photosBlock, ad.offer.photos);
+    renderFeatures(featuresBlock, ad.offer.features);
+
+    mapFilters.insertAdjacentElement('beforebegin', cardElement);
+
+    var popupCloseBtn = cardElement.querySelector('.popup__close');
+    popupCloseBtn.addEventListener('click', popupRemove);
+
+    document.addEventListener('keydown', onPopupPress);
 
     return cardElement;
   };
 
+  var onPopupPress = function (evt) {
+    if (evt.key === 'Escape' && cardElement !== null) {
+      popupRemove();
+    }
+  };
+
+  var popupRemove = function () {
+    if (cardElement !== null) {
+      cardElement.remove();
+      document.removeEventListener('keydown', onPopupPress);
+    }
+  };
+
   window.card = {
     createCard: createCard,
+    card: cardElement,
   };
 })();

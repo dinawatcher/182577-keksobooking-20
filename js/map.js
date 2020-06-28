@@ -6,7 +6,6 @@
   var PIN_MAIN_POINTER = 22;
 
   var hotelMap = document.querySelector('.map');
-  var mapFilters = document.querySelector('.map__filters-container');
   var mapPinMain = document.querySelector('.map__pin--main');
   var pins = window.offer.createAds(ADS_COUNT);
   var pinMainLocationX = Math.round(parseInt(mapPinMain.style.left, 10) + PIN_MAIN_SIZE / 2);
@@ -33,7 +32,6 @@
     window.form.activateInputs(window.form.adFormSelects);
     window.form.activateInputs(window.form.filterFormSelects);
     window.form.address.value = pinMainLocationX + ', ' + pinMainLocationYActive;
-    hotelMap.insertBefore(window.card.createCard(window.map.pins), mapFilters);
 
     mapPinMain.removeEventListener('mousedown', onPinMainAction);
     mapPinMain.removeEventListener('keydown', onPinMainAction);
