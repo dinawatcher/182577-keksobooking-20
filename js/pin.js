@@ -14,12 +14,6 @@
     pinElement.style.left = item.location.x - (pinImg.width / 2) + 'px';
     pinElement.style.top = item.location.y - pinImg.height + 'px';
 
-    pinElement.addEventListener('keydown',function (evt) {
-      if (evt.code === 'Enter') {
-        window.card.createCard;
-      }
-    });
-
     return pinElement;
   };
 
