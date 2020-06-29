@@ -60,6 +60,9 @@
     createAds: createAds,
     ads: ads,
     hotels: HOTEL_TYPES,
+    maxX: MAX_X,
+    minY: MIN_Y,
+    maxY: MAX_Y,
   };
 })();
 
