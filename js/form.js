@@ -21,19 +21,27 @@
     }
   };
 
-  var typesValidity = function () {
-    if (types.value === 'bungalo') {
-      prices.setAttribute('min', 0);
-      prices.placeholder = '0';
-    } else if (types.value === 'flat') {
-      prices.setAttribute('min', 1000);
-      prices.placeholder = '1000';
-    } else if (types.value === 'house') {
-      prices.setAttribute('min', 5000);
-      prices.placeholder = '5000';
-    } else if (types.value === 'palace') {
-      prices.setAttribute('min', 10000);
-      prices.placeholder = '10000';
+  var typesValidity = function (type, price) {
+    switch (type.value) {
+      case 'bungalo':
+        price.setAttribute('min', 0);
+        price.placeholder = '0';
+        break;
+
+      case 'flat' :
+        price.setAttribute('min', 1000);
+        price.placeholder = '1000';
+        break;
+
+      case 'house':
+        price.setAttribute('min', 5000);
+        price.placeholder = '5000';
+        break;
+
+      case 'palace':
+        price.setAttribute('min', 10000);
+        price.placeholder = '10000';
+        break;
     }
   };
 
@@ -61,7 +69,9 @@
 
   checkin.addEventListener('change', timeInValidity);
   checkout.addEventListener('change', timeOutValidity);
-  types.addEventListener('change', typesValidity);
+  types.addEventListener('change', function () {
+    typesValidity(types, prices);
+  });
   rooms.addEventListener('change', capacityValidity);
 
   window.form = {
