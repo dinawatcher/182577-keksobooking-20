@@ -20,9 +20,18 @@
   var renderPins = function (arr) {
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < arr.length; i++) {
-      fragment.appendChild(renderPin(arr[i]));
+      var ad = window.offer.ads[i];
+      var pin = renderPin(ad);
+      fragment.appendChild(pin);
+      addPinHandlers(pin, ad);
     }
     mapPins.appendChild(fragment);
+  };
+
+  var addPinHandlers = function (pin, ad) {
+    pin.addEventListener('click', function () {
+      window.card.createCard(ad);
+    });
   };
 
   window.pin = {

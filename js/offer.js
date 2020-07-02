@@ -23,9 +23,9 @@
     'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
     'http://o0.github.io/assets/images/tokyo/hotel3.jpg'
   ];
+  var ads = [];
 
   var createAds = function (num) {
-    var ads = [];
 
     for (var i = 0; i < num; i++) {
       var locationX = window.randomize.getRandomNumber(0, MAX_X);
@@ -58,6 +58,7 @@
   };
   window.offer = {
     createAds: createAds,
+    ads: ads,
     hotels: HOTEL_TYPES,
   };
 })();
