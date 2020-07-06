@@ -30,7 +30,7 @@
   var getAds = function (data) {
     ads.push(data);
   };
-  
+
   window.offer = {
     ads: ads,
     getAds: getAds,
