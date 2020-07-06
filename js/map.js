@@ -62,5 +62,8 @@
 
   window.map = {
     hotelMap: hotelMap,
+    mapPinMain: mapPinMain,
+    pinSize: PIN_MAIN_SIZE,
+    pinPointer: PIN_MAIN_POINTER,
   };
 })();
