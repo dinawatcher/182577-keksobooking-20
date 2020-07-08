@@ -2,6 +2,8 @@
 
 (function () {
   var adForm = document.querySelector('.ad-form');
+  var submitBtn = adForm.querySelector('.ad-form__submit');
+  var resetBtn = adForm.querySelector('.ad-form__reset');
   var formFieldsets = adForm.querySelectorAll('fieldset');
   var adFormSelects = adForm.querySelectorAll('select');
   var types = adForm.querySelector('#type');
@@ -74,7 +76,14 @@
   });
   rooms.addEventListener('change', capacityValidity);
 
+  adForm.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.api.send('https://javascript.pages.academy/keksobooking', new FormData(adForm), window.popup.success, window.popup.error);
+    window.map.disabled();
+  });
+
   window.form = {
+    form: adForm,
     formFieldsets: formFieldsets,
     filterFormSelects: filterFormSelects,
     adFormSelects: adFormSelects,

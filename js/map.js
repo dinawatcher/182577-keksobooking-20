@@ -3,6 +3,8 @@
 (function () {
   var PIN_MAIN_SIZE = 65;
   var PIN_MAIN_POINTER = 22;
+  var PIN_MAIN_DEFAULT_X = 570;
+  var PIN_MAIN_DEFAULT_Y = 375;
 
   var hotelMap = document.querySelector('.map');
   var mapPinMain = document.querySelector('.map__pin--main');
@@ -15,11 +17,25 @@
       arr[i].disabled = true;
     }
   };
+  [window.form.formFieldsets, window.form.adFormSelects, window.form.filterFormSelects].forEach(function (inputs) {
+    disableInputs(inputs);
+  });
 
   var disabledOnLoad = function () {
-    [window.form.formFieldsets, window.form.adFormSelects, window.form.filterFormSelects].forEach(function (inputs) {
-      disableInputs(inputs);
+    window.form.form.reset();
+
+    hotelMap.classList.add('map--faded');
+    window.form.form.classList.add('ad-form--disabled');
+    window.pin.mapPins.querySelectorAll('.map__pin').forEach(function (pin) {
+      if (!pin.classList.contains('map__pin--main')) {
+        pin.remove();
+      }
     });
+    if (hotelMap.querySelector('map__card')) {
+      hotelMap.querySelector('.map__card').remove();
+    }
+    mapPinMain.style.left = PIN_MAIN_DEFAULT_X + 'px';
+    mapPinMain.style.top = PIN_MAIN_DEFAULT_Y + 'px';
     window.form.address.value = pinMainLocationX + ',' + ' ' + pinMainLocationY;
   };
 
@@ -37,7 +53,7 @@
       disabledOnLoad();
     };
 
-    window.backend.load(urlLoad, onSuccessLoad, onErrorLoad);
+    window.api.load(urlLoad, onSuccessLoad, onErrorLoad);
   };
 
   var activatePage = function () {
@@ -46,9 +62,6 @@
     window.form.activateInputs(window.form.adFormSelects);
     window.form.activateInputs(window.form.filterFormSelects);
     window.form.address.value = pinMainLocationX + ', ' + pinMainLocationYActive;
-
-    mapPinMain.removeEventListener('mousedown', onPinMainAction);
-    mapPinMain.removeEventListener('keydown', onPinMainAction);
   };
 
   var onPinMainAction = function (evt) {
@@ -62,5 +75,10 @@
 
   window.map = {
     hotelMap: hotelMap,
+    disabled: disabledOnLoad,
+    mapPinMain: mapPinMain,
+    pinSize: PIN_MAIN_SIZE,
+    pinPointer: PIN_MAIN_POINTER,
+    getData: getData,
   };
 })();

@@ -1,9 +1,9 @@
 'use strict';
 
 (function () {
-  // var MAX_X = 1200;
-  // var MIN_Y = 130;
-  // var MAX_Y = 630;
+  var MAX_X = document.querySelector('.map__pins').clientWidth;
+  var MIN_Y = 130;
+  var MAX_Y = 630;
   // var MIN_PRICE = 10000;
   // var MAX_PRICE = 50000;
   // var MIN_ROOMS = 1;
@@ -35,6 +35,9 @@
     ads: ads,
     getAds: getAds,
     hotels: HOTEL_TYPES,
+    maxX: MAX_X,
+    minY: MIN_Y,
+    maxY: MAX_Y,
   };
 })();
 
