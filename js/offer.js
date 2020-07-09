@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var MAX_X = document.querySelector('.map__pins').clientWidth;
+  var MAX_X = document.querySelector('.map').clientWidth;
   var MIN_Y = 130;
   var MAX_Y = 630;
   // var MIN_PRICE = 10000;
@@ -29,7 +29,6 @@
   var getAds = function (data) {
     ads.push(data);
   };
-
 
   window.offer = {
     ads: ads,
