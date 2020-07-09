@@ -5,12 +5,14 @@
   var successTemplate = document.querySelector('#success').content.querySelector('.success');
   var errorTemplate = document.querySelector('#error').content.querySelector('.error');
 
-  var renderSuccessPopup = function () {
+  var onSuccess = function () {
     var fragment = document.createDocumentFragment();
     var successMessage = successTemplate.cloneNode(true);
 
     fragment.appendChild(successMessage);
     main.appendChild(fragment);
+
+    window.map.disabled();
 
     document.addEventListener('keydown', removeSuccessPopup);
     document.addEventListener('click', removeSuccessPopup);
@@ -26,7 +28,7 @@
     document.removeEventListener('keydown', removeSuccessPopup);
   };
 
-  var renderErrorPopup = function () {
+  var onError = function () {
     var fragment = document.createDocumentFragment();
     var errorMessage = errorTemplate.cloneNode(true);
 
@@ -46,7 +48,7 @@
   };
 
   window.popup = {
-    success: renderSuccessPopup,
-    error: renderErrorPopup,
+    success: onSuccess,
+    error: onError,
   };
 })();
