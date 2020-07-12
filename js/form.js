@@ -74,7 +74,13 @@
   });
   rooms.addEventListener('change', capacityValidity);
 
+  adForm.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.api.send('https://javascript.pages.academy/keksobooking', new FormData(adForm), window.popup.success, window.popup.error);
+  });
+
   window.form = {
+    form: adForm,
     formFieldsets: formFieldsets,
     filterFormSelects: filterFormSelects,
     adFormSelects: adFormSelects,

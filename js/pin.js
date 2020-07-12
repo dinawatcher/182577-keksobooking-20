@@ -35,6 +35,7 @@
   };
 
   window.pin = {
+    mapPins: mapPins,
     renderPins: renderPins,
   };
 })();

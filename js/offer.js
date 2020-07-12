@@ -10,7 +10,6 @@
   // var MAX_ROOMS = 3;
   // var MIN_GUESTS = 0;
   // var MAX_GUESTS = 2;
-
   var HOTEL_TYPES = {
     palace: 'Дворец',
     flat: 'Квартира',
@@ -40,4 +39,3 @@
     maxY: MAX_Y,
   };
 })();
-
