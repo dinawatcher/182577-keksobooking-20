@@ -37,7 +37,7 @@
 
       if (currentX <= 0) {
         currentX = 0;
-      } else if (startCoords.x >= window.offer.maxX - window.map.pinSize) {
+      } else if (currentX >= window.offer.maxX - window.map.pinSize) {
         currentX = window.offer.maxX - window.map.pinSize;
       }
 
