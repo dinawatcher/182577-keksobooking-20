@@ -12,12 +12,23 @@
   var pinMainLocationY = Math.round(parseInt(mapPinMain.style.top, 10) + PIN_MAIN_SIZE / 2);
   var pinMainLocationYActive = Math.round(parseInt(mapPinMain.style.top, 10)) + PIN_MAIN_SIZE + PIN_MAIN_POINTER;
 
+  var filterForm = document.querySelector('.map__filters');
+  var filterFormSelects = filterForm.querySelectorAll('select');
+
   var disableInputs = function (arr) {
     for (var i = 0; i < arr.length; i++) {
       arr[i].disabled = true;
     }
   };
-  [window.form.formFieldsets, window.form.adFormSelects, window.form.filterFormSelects].forEach(function (inputs) {
+
+  var pinRemove = function () {
+    window.pin.mapPins.querySelectorAll('.map__pin').forEach(function (pin) {
+      if (!pin.classList.contains('map__pin--main')) {
+        pin.remove();
+      }
+    });
+  };
+  [window.form.formFieldsets, window.form.adFormSelects, filterFormSelects].forEach(function (inputs) {
     disableInputs(inputs);
   });
 
@@ -26,11 +37,7 @@
 
     hotelMap.classList.add('map--faded');
     window.form.form.classList.add('ad-form--disabled');
-    window.pin.mapPins.querySelectorAll('.map__pin').forEach(function (pin) {
-      if (!pin.classList.contains('map__pin--main')) {
-        pin.remove();
-      }
-    });
+    pinRemove();
     if (hotelMap.querySelector('map__card')) {
       hotelMap.querySelector('.map__card').remove();
     }
@@ -48,6 +55,8 @@
       }
       window.pin.renderPins(data);
       activatePage();
+      window.filter.filterByType();
+
     };
     var onErrorLoad = function () {
       disabledOnLoad();
@@ -56,11 +65,12 @@
     window.api.load(urlLoad, onSuccessLoad, onErrorLoad);
   };
 
+
   var activatePage = function () {
     hotelMap.classList.remove('map--faded');
     window.form.activateInputs(window.form.formFieldsets);
     window.form.activateInputs(window.form.adFormSelects);
-    window.form.activateInputs(window.form.filterFormSelects);
+    window.form.activateInputs(filterFormSelects);
     window.form.address.value = pinMainLocationX + ', ' + pinMainLocationYActive;
   };
 
@@ -79,6 +89,7 @@
     mapPinMain: mapPinMain,
     pinSize: PIN_MAIN_SIZE,
     pinPointer: PIN_MAIN_POINTER,
+    pinRemove: pinRemove,
     getData: getData,
   };
 })();
