@@ -55,8 +55,6 @@
       }
       window.pin.renderPins(data);
       activatePage();
-      window.filter.filterByType();
-
     };
     var onErrorLoad = function () {
       disabledOnLoad();
