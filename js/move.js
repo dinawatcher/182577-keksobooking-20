@@ -35,10 +35,10 @@
         currentY = window.offer.maxY;
       }
 
-      if (currentX <= 0) {
-        currentX = 0;
-      } else if (currentX >= window.offer.maxX - window.map.pinSize) {
-        currentX = window.offer.maxX - window.map.pinSize;
+      if (currentX <= 0 - window.map.pinSize / 2) {
+        currentX = 0 - window.map.pinSize / 2;
+      } else if (currentX >= window.offer.maxX - window.map.pinSize / 2) {
+        currentX = window.offer.maxX - window.map.pinSize / 2;
       }
 
       window.map.mapPinMain.style.left = currentX + 'px';

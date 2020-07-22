@@ -52,29 +52,29 @@
   };
 
   var capacityValidity = function () {
-    if (rooms.value === '100' && capacity.value !== 0) {
-      rooms.setCustomValidity('Не для гостей');
-    } else if (rooms.value === '1' && capacity.value > rooms.value) {
-      rooms.setCustomValidity('Для одного гостя');
-    } else if (rooms.value === '2' && capacity.value > rooms.value) {
-      rooms.setCustomValidity('Для двух гостя');
-    } else if (rooms.value === '1' && capacity.value > rooms.value) {
-      rooms.setCustomValidity('Для трех гостя');
+    if (rooms.value < capacity.value) {
+      capacity.setCustomValidity('Выберите меньшее количество гостей или увеличьте количество комнат');
+    } else if (rooms.value === '100' && capacity.value !== '0' || rooms.value === '100' || capacity.value === '0') {
+      capacity.setCustomValidity('Комната не для гостей');
+    } else if (rooms.value !== '100' && capacity.value === '0') {
+      capacity.setCustomValidity('Выберите большее количество комнат');
     } else {
-      rooms.setCustomValidity('');
+      capacity.setCustomValidity('');
     }
   };
+
+  rooms.addEventListener('change', capacityValidity);
+  capacity.addEventListener('change', capacityValidity);
 
   checkin.addEventListener('change', timeInValidity);
   checkout.addEventListener('change', timeOutValidity);
   types.addEventListener('change', function () {
     typesValidity(types, prices);
   });
-  rooms.addEventListener('change', capacityValidity);
 
   adForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    window.api.send('https://javascript.pages.academy/keksobooking', new FormData(adForm), window.popup.success, window.popup.error);
+    window.api.send(new FormData(adForm), window.popup.success, window.popup.error);
   });
 
   window.form = {

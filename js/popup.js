@@ -24,7 +24,7 @@
     if (evt.key === 'Escape' || evt.button === 0) {
       success.remove();
     }
-
+    document.removeEventListener('click', removeSuccessPopup);
     document.removeEventListener('keydown', removeSuccessPopup);
   };
 

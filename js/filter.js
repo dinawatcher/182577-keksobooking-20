@@ -59,7 +59,6 @@
 
   var setAds = function () {
     var filteredAds = [];
-
     window.offer.ads.forEach(function (item) {
       if (filterByType(item) && filterByPrice(item) && filterByRooms(item) && filterByGuests(item) && filterByFeatures(item)) {
         filteredAds.push(item);

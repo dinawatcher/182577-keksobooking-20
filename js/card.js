@@ -68,8 +68,17 @@
     cardElement.querySelector('.popup__description').textContent = ad.offer.description;
     cardElement.querySelector('.popup__avatar').src = ad.author.avatar;
 
-    renderPhotos(photosBlock, ad.offer.photos);
-    renderFeatures(featuresBlock, ad.offer.features);
+    if (ad.offer.features.length >= 1) {
+      renderFeatures(featuresBlock, ad.offer.features);
+    } else if (ad.offer.features.length === 0) {
+      cardElement.querySelector('.popup__features').remove();
+    }
+
+    if (ad.offer.photos.length >= 1) {
+      renderPhotos(photosBlock, ad.offer.photos);
+    } else if (ad.offer.photos.length === 0) {
+      cardElement.querySelector('.popup__photos').remove();
+    }
 
     mapFilters.insertAdjacentElement('beforebegin', cardElement);
 
