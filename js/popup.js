@@ -45,6 +45,8 @@
     if (evt.key === 'Escape' || evt.button === 0) {
       error.remove();
     }
+    document.removeEventListener('keydown', removeErrorPopup);
+    document.removeEventListener('click', removeErrorPopup);
   };
 
   window.popup = {

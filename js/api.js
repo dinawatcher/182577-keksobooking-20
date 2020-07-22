@@ -2,7 +2,7 @@
 
 (function () {
   var TIMEOUT_MS = 10000;
-  var url = {
+  var Url = {
     GET: 'https://javascript.pages.academy/keksobooking/data',
     POST: 'https://javascript.pages.academy/keksobooking',
   };
@@ -28,7 +28,7 @@
     });
 
     xhr.timeout = TIMEOUT_MS;
-    xhr.open('GET', url.GET);
+    xhr.open('GET', Url.GET);
     xhr.send();
   };
 
@@ -45,7 +45,7 @@
     });
 
     xhr.timeout = TIMEOUT_MS;
-    xhr.open('POST', url.POST);
+    xhr.open('POST', Url.POST);
     xhr.send(data);
   };
 
@@ -53,5 +53,4 @@
     load: load,
     send: send,
   };
-
 })();

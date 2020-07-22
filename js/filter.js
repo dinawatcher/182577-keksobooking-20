@@ -11,6 +11,7 @@
 
   var filterByType = function (item) {
     var typeValue = housingType.value;
+
     if (typeValue !== 'any') {
       return item.offer.type === typeValue;
     } else {
@@ -20,6 +21,7 @@
 
   var filterByPrice = function (item) {
     var priceValue = housingPrice.value;
+
     switch (priceValue) {
       case 'low':
         return item.offer.price < 10000;
@@ -34,6 +36,7 @@
 
   var filterByRooms = function (item) {
     var roomsValue = housingRooms.value;
+
     if (roomsValue !== 'any') {
       return item.offer.rooms === Number(roomsValue);
     } else {
@@ -43,6 +46,7 @@
 
   var filterByGuests = function (item) {
     var guestsValue = housingGuests.value;
+
     if (guestsValue !== 'any') {
       return item.offer.guests === Number(guestsValue);
     } else {
@@ -52,6 +56,7 @@
 
   var filterByFeatures = function (item) {
     var checkedFeatures = housingFeatures.querySelectorAll('input[name="features"]:checked');
+
     return Array.from(checkedFeatures).every(function (checkedFeature) {
       return item.offer.features.includes(checkedFeature.value);
     });
@@ -59,6 +64,7 @@
 
   var setAds = function () {
     var filteredAds = [];
+
     window.offer.ads.forEach(function (item) {
       if (filterByType(item) && filterByPrice(item) && filterByRooms(item) && filterByGuests(item) && filterByFeatures(item)) {
         filteredAds.push(item);

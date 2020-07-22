@@ -12,14 +12,16 @@
   var capacity = adForm.querySelector('#capacity');
   var address = adForm.querySelector('#address');
 
-  var activateInputs = function (arr) {
+  var activateInputs = function (array) {
     adForm.classList.remove('ad-form--disabled');
-    for (var i = 0; i < arr.length; i++) {
-      arr[i].disabled = false;
+
+    for (var i = 0; i < array.length; i++) {
+      array[i].disabled = false;
+      array[i].style.cursor = 'pointer';
     }
   };
 
-  var typesValidity = function (type, price) {
+  var setTypesValidity = function (type, price) {
     switch (type.value) {
       case 'bungalo':
         price.setAttribute('min', 0);
@@ -43,15 +45,15 @@
     }
   };
 
-  var timeInValidity = function () {
+  var setTimeInValidity = function () {
     checkout.value = checkin.value;
   };
 
-  var timeOutValidity = function () {
+  var setTimeOutValidity = function () {
     checkin.value = checkout.value;
   };
 
-  var capacityValidity = function () {
+  var setCapacityValidity = function () {
     if (rooms.value < capacity.value) {
       capacity.setCustomValidity('Выберите меньшее количество гостей или увеличьте количество комнат');
     } else if (rooms.value === '100' && capacity.value !== '0' || rooms.value === '100' || capacity.value === '0') {
@@ -63,13 +65,12 @@
     }
   };
 
-  rooms.addEventListener('change', capacityValidity);
-  capacity.addEventListener('change', capacityValidity);
-
-  checkin.addEventListener('change', timeInValidity);
-  checkout.addEventListener('change', timeOutValidity);
+  rooms.addEventListener('change', setCapacityValidity);
+  capacity.addEventListener('change', setCapacityValidity);
+  checkin.addEventListener('change', setTimeInValidity);
+  checkout.addEventListener('change', setTimeOutValidity);
   types.addEventListener('change', function () {
-    typesValidity(types, prices);
+    setTypesValidity(types, prices);
   });
 
   adForm.addEventListener('submit', function (evt) {

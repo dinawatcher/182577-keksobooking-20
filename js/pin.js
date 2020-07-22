@@ -19,20 +19,22 @@
     return pinElement;
   };
 
-  var renderPins = function (arr) {
+  var renderPins = function (array) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < arr.length; i++) {
+
+    for (var i = 0; i < array.length; i++) {
       if (i >= PINS) {
         break;
       }
-      var pin = renderPin(arr[i]);
+
+      var pin = renderPin(array[i]);
       fragment.appendChild(pin);
-      addPinHandlers(pin, arr[i]);
+      onPinAction(pin, array[i]);
     }
     mapPins.appendChild(fragment);
   };
 
-  var addPinHandlers = function (pin, ad) {
+  var onPinAction = function (pin, ad) {
     pin.addEventListener('click', function () {
       window.card.createCard(ad);
     });

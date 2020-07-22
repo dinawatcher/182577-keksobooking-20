@@ -5,7 +5,6 @@
   var mapFilters = document.querySelector('.map__filters-container');
   var cardElement = null;
 
-
   var renderPhotos = function (container, photos) {
     container.innerHTML = '';
 
@@ -23,6 +22,7 @@
 
   var renderFeatures = function (container, features) {
     container.innerHTML = '';
+
     for (var i = 0; i < features.length; i++) {
       var li = document.createElement('li');
 
@@ -105,7 +105,6 @@
 
   window.card = {
     createCard: createCard,
-    card: cardElement,
     popupRemove: popupRemove,
   };
 })();
