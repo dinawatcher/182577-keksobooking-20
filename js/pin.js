@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var PINS = 5;
+
   var mapPins = document.querySelector('.map__pins');
   var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
@@ -20,10 +22,12 @@
   var renderPins = function (arr) {
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < arr.length; i++) {
-      var ad = window.offer.ads[i];
-      var pin = renderPin(ad);
+      if (i >= PINS) {
+        break;
+      }
+      var pin = renderPin(arr[i]);
       fragment.appendChild(pin);
-      addPinHandlers(pin, ad);
+      addPinHandlers(pin, arr[i]);
     }
     mapPins.appendChild(fragment);
   };

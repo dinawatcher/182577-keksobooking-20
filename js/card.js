@@ -97,5 +97,6 @@
   window.card = {
     createCard: createCard,
     card: cardElement,
+    popupRemove: popupRemove,
   };
 })();

@@ -11,8 +11,6 @@
   var rooms = adForm.querySelector('#room_number');
   var capacity = adForm.querySelector('#capacity');
   var address = adForm.querySelector('#address');
-  var filterForm = document.querySelector('.map__filters');
-  var filterFormSelects = filterForm.querySelectorAll('select');
 
   var activateInputs = function (arr) {
     adForm.classList.remove('ad-form--disabled');
@@ -82,7 +80,6 @@
   window.form = {
     form: adForm,
     formFieldsets: formFieldsets,
-    filterFormSelects: filterFormSelects,
     adFormSelects: adFormSelects,
     address: address,
     activateInputs: activateInputs,
