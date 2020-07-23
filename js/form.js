@@ -82,7 +82,6 @@
     fieldsets: formFieldsets,
     selects: adFormSelects,
     address: address,
-    // activateInputs: activateInputs,
   };
 
 })();
