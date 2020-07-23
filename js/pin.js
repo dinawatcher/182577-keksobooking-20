@@ -36,12 +36,12 @@
 
   var onPinAction = function (pin, ad) {
     pin.addEventListener('click', function () {
-      window.card.createCard(ad);
+      window.card.create(ad);
     });
   };
 
   window.pin = {
     mapPins: mapPins,
-    renderPins: renderPins,
+    render: renderPins,
   };
 })();

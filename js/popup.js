@@ -21,7 +21,7 @@
   var removeSuccessPopup = function (evt) {
     var success = document.querySelector('.success');
 
-    if (evt.key === 'Escape' || evt.button === 0) {
+    if (evt.key === window.const.Key.ESCAPE || evt.button === window.const.LEFT_MOUSE_BUTTON) {
       success.remove();
     }
     document.removeEventListener('click', removeSuccessPopup);
@@ -42,7 +42,7 @@
   var removeErrorPopup = function (evt) {
     var error = document.querySelector('.error');
 
-    if (evt.key === 'Escape' || evt.button === 0) {
+    if (evt.key === window.const.Key.ESCAPE || evt.button === window.const.LEFT_MOUSE_BUTTON) {
       error.remove();
     }
     document.removeEventListener('keydown', removeErrorPopup);

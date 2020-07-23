@@ -1,6 +1,13 @@
 'use strict';
 
 (function () {
+  var TypesToPrices = {
+    'bungalo': 0,
+    'flat': 1000,
+    'house': 5000,
+    'palace': 10000,
+  };
+
   var adForm = document.querySelector('.ad-form');
   var formFieldsets = adForm.querySelectorAll('fieldset');
   var adFormSelects = adForm.querySelectorAll('select');
@@ -12,37 +19,24 @@
   var capacity = adForm.querySelector('#capacity');
   var address = adForm.querySelector('#address');
 
-  var activateInputs = function (inputs) {
-    adForm.classList.remove('ad-form--disabled');
-
-    for (var i = 0; i < inputs.length; i++) {
-      inputs[i].disabled = false;
-      inputs[i].style.cursor = 'pointer';
-    }
+  var disableForm = function () {
+    adForm.reset();
+    adForm.classList.add('ad-form--disabled');
+    window.util.disableInputs(formFieldsets);
+    window.util.disableInputs(adFormSelects);
   };
 
-  var setTypesValidity = function (type, price) {
-    switch (type.value) {
-      case 'bungalo':
-        price.setAttribute('min', 0);
-        price.placeholder = '0';
-        break;
+  disableForm();
 
-      case 'flat' :
-        price.setAttribute('min', 1000);
-        price.placeholder = '1000';
-        break;
+  var activateForm = function () {
+    adForm.classList.remove('ad-form--disabled');
+    window.util.activateInputs(formFieldsets);
+    window.util.activateInputs(adFormSelects);
+  };
 
-      case 'house':
-        price.setAttribute('min', 5000);
-        price.placeholder = '5000';
-        break;
-
-      case 'palace':
-        price.setAttribute('min', 10000);
-        price.placeholder = '10000';
-        break;
-    }
+  var setTypesValidity = function () {
+    prices.min = TypesToPrices[types.value];
+    prices.placeholder = TypesToPrices[types.value];
   };
 
   var setTimeInValidity = function () {
@@ -78,12 +72,17 @@
     window.api.send(new FormData(adForm), window.popup.success, window.popup.error);
   });
 
+  adForm.addEventListener('reset', function () {
+    window.map.disabled();
+  });
+
   window.form = {
-    form: adForm,
-    formFieldsets: formFieldsets,
-    adFormSelects: adFormSelects,
+    disable: disableForm,
+    activate: activateForm,
+    fieldsets: formFieldsets,
+    selects: adFormSelects,
     address: address,
-    activateInputs: activateInputs,
+    // activateInputs: activateInputs,
   };
 
 })();

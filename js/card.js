@@ -1,6 +1,11 @@
 'use strict';
 
 (function () {
+  var ImgSize = {
+    WIDTH: 45,
+    HEIGHT: 40,
+  };
+
   var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
   var mapFilters = document.querySelector('.map__filters-container');
   var cardElement = null;
@@ -8,16 +13,16 @@
   var renderPhotos = function (container, photos) {
     container.innerHTML = '';
 
-    for (var i = 0; i < photos.length; i++) {
+    photos.forEach(function (photo) {
       var img = document.createElement('img');
 
-      img.src = photos[i];
+      img.src = photo;
       img.className = 'popup__photo';
-      img.width = 45;
-      img.height = 40;
+      img.width = ImgSize.WIDTH;
+      img.height = ImgSize.HEIGHT;
       img.alt = 'Фотография жилья';
       container.appendChild(img);
-    }
+    });
   };
 
   var renderFeatures = function (container, features) {
@@ -44,9 +49,8 @@
         return ad.offer.rooms + ' комната для ';
       } else if (ad.offer.rooms > 1 && ad.offer.rooms < 5) {
         return ad.offer.rooms + ' комнаты для ';
-      } else {
-        return ad.offer.rooms + ' комнат для ';
       }
+      return ad.offer.rooms + ' комнат для ';
     };
 
     var getGuests = function () {
@@ -54,9 +58,8 @@
         return cardElement.querySelector('.popup__text--capacity').classList.add('hidden');
       } else if (ad.offer.guests === 1) {
         return ad.offer.guests + ' гостя';
-      } else {
-        return ad.offer.guests + ' гостей';
       }
+      return ad.offer.guests + ' гостей';
     };
 
     cardElement.querySelector('.popup__title').textContent = ad.offer.title;
@@ -70,13 +73,13 @@
 
     if (ad.offer.features.length >= 1) {
       renderFeatures(featuresBlock, ad.offer.features);
-    } else if (ad.offer.features.length === 0) {
+    } else if (!ad.offer.features.length) {
       cardElement.querySelector('.popup__features').remove();
     }
 
     if (ad.offer.photos.length >= 1) {
       renderPhotos(photosBlock, ad.offer.photos);
-    } else if (ad.offer.photos.length === 0) {
+    } else if (!ad.offer.photos.length) {
       cardElement.querySelector('.popup__photos').remove();
     }
 
@@ -91,7 +94,7 @@
   };
 
   var onPopupPress = function (evt) {
-    if (evt.key === 'Escape' && cardElement !== null) {
+    if (evt.key === window.const.Key.ESCAPE && cardElement !== null) {
       popupRemove();
     }
   };
@@ -104,7 +107,7 @@
   };
 
   window.card = {
-    createCard: createCard,
+    create: createCard,
     popupRemove: popupRemove,
   };
 })();

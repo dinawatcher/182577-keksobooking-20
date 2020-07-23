@@ -1,7 +1,10 @@
 'use strict';
 
 (function () {
+  var FILTER_DEFAULT_VALUE = 'any';
   var filterForm = document.querySelector('.map__filters');
+  var filterFormSelects = filterForm.querySelectorAll('select');
+  var filterFormFeatures = filterForm.querySelectorAll('#housing-features');
   var housingType = filterForm.querySelector('#housing-type');
   var housingPrice = filterForm.querySelector('#housing-price');
   var housingRooms = filterForm.querySelector('#housing-rooms');
@@ -9,10 +12,23 @@
   var housingFeatures = filterForm.querySelector('#housing-features');
   var debounce = window.debounce;
 
+  var disableFilters = function () {
+    filterForm.reset();
+    window.util.disableInputs(filterFormSelects);
+    window.util.disableInputs(filterFormFeatures);
+  };
+
+  disableFilters();
+
+  var activateFilters = function () {
+    window.util.activateInputs(filterFormSelects);
+    window.util.activateInputs(filterFormFeatures);
+  };
+
   var filterByType = function (item) {
     var typeValue = housingType.value;
 
-    if (typeValue !== 'any') {
+    if (typeValue !== FILTER_DEFAULT_VALUE) {
       return item.offer.type === typeValue;
     }
 
@@ -37,7 +53,7 @@
   var filterByRooms = function (item) {
     var roomsValue = housingRooms.value;
 
-    if (roomsValue !== 'any') {
+    if (roomsValue !== FILTER_DEFAULT_VALUE) {
       return item.offer.rooms === Number(roomsValue);
     }
 
@@ -47,7 +63,7 @@
   var filterByGuests = function (item) {
     var guestsValue = housingGuests.value;
 
-    if (guestsValue !== 'any') {
+    if (guestsValue !== FILTER_DEFAULT_VALUE) {
       return item.offer.guests === Number(guestsValue);
     }
 
@@ -72,7 +88,7 @@
     });
     window.card.popupRemove();
     window.map.pinRemove();
-    window.pin.renderPins(filteredAds);
+    window.pin.render(filteredAds);
   };
 
   var onFilterChange = debounce(function () {
@@ -82,6 +98,7 @@
   filterForm.addEventListener('change', onFilterChange);
 
   window.filter = {
-    filterForm: filterForm,
+    disable: disableFilters,
+    activate: activateFilters,
   };
 })();

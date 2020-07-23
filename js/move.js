@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  window.map.mapPinMain.addEventListener('mousedown', function (evt) {
+  window.map.pinMain.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
 
     var startCoords = {
@@ -26,23 +26,23 @@
         y: moveEvt.clientY
       };
 
-      var currentX = window.map.mapPinMain.offsetLeft - shift.x;
-      var currentY = window.map.mapPinMain.offsetTop - shift.y;
+      var currentX = window.map.pinMain.offsetLeft - shift.x;
+      var currentY = window.map.pinMain.offsetTop - shift.y;
 
-      if (currentY <= window.offer.minY) {
-        currentY = window.offer.minY;
-      } else if (currentY >= window.offer.maxY) {
-        currentY = window.offer.maxY;
+      if (currentY <= window.const.Map.MIN_Y) {
+        currentY = window.const.Map.MIN_Y;
+      } else if (currentY >= window.const.Map.MAX_Y) {
+        currentY = window.const.Map.MAX_Y;
       }
 
       if (currentX <= 0 - window.map.pinSize / 2) {
         currentX = 0 - window.map.pinSize / 2;
-      } else if (currentX >= window.offer.maxX - window.map.pinSize / 2) {
-        currentX = window.offer.maxX - window.map.pinSize / 2;
+      } else if (currentX >= window.const.Map.MAX_X - window.map.pinSize / 2) {
+        currentX = window.const.Map.MAX_X - window.map.pinSize / 2;
       }
 
-      window.map.mapPinMain.style.left = currentX + 'px';
-      window.map.mapPinMain.style.top = currentY + 'px';
+      window.map.pinMain.style.left = currentX + 'px';
+      window.map.pinMain.style.top = currentY + 'px';
       window.form.address.value = currentX + ', ' + currentY;
 
 
@@ -57,9 +57,9 @@
       if (dragged) {
         var onClickPreventDefault = function (clickEvt) {
           clickEvt.preventDefault();
-          window.map.mapPinMain.removeEventListener('click', onClickPreventDefault);
+          window.map.pinMain.removeEventListener('click', onClickPreventDefault);
         };
-        window.map.mapPinMain.addEventListener('click', onClickPreventDefault);
+        window.map.pinMain.addEventListener('click', onClickPreventDefault);
       }
     };
 

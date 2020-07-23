@@ -1,9 +1,6 @@
 'use strict';
 
 (function () {
-  var MAX_X = document.querySelector('.map').clientWidth;
-  var MIN_Y = 130;
-  var MAX_Y = 630;
 
   var hotelTypes = {
     palace: 'Дворец',
@@ -20,9 +17,6 @@
 
   window.offer = {
     hotels: hotelTypes,
-    maxX: MAX_X,
-    minY: MIN_Y,
-    maxY: MAX_Y,
     ads: ads,
     getAds: getAds,
   };
