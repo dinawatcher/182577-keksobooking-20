@@ -12,12 +12,12 @@
   var capacity = adForm.querySelector('#capacity');
   var address = adForm.querySelector('#address');
 
-  var activateInputs = function (array) {
+  var activateInputs = function (inputs) {
     adForm.classList.remove('ad-form--disabled');
 
-    for (var i = 0; i < array.length; i++) {
-      array[i].disabled = false;
-      array[i].style.cursor = 'pointer';
+    for (var i = 0; i < inputs.length; i++) {
+      inputs[i].disabled = false;
+      inputs[i].style.cursor = 'pointer';
     }
   };
 

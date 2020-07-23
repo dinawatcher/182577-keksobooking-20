@@ -19,17 +19,17 @@
     return pinElement;
   };
 
-  var renderPins = function (array) {
+  var renderPins = function (ads) {
     var fragment = document.createDocumentFragment();
 
-    for (var i = 0; i < array.length; i++) {
+    for (var i = 0; i < ads.length; i++) {
       if (i >= PINS) {
         break;
       }
 
-      var pin = renderPin(array[i]);
+      var pin = renderPin(ads[i]);
       fragment.appendChild(pin);
-      onPinAction(pin, array[i]);
+      onPinAction(pin, ads[i]);
     }
     mapPins.appendChild(fragment);
   };

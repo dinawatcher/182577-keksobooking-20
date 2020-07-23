@@ -18,10 +18,10 @@
   var filterFormSelects = filterForm.querySelectorAll('select');
   var filterFormFeatures = filterForm.querySelectorAll('#housing-features');
 
-  var disableInputs = function (array) {
-    for (var i = 0; i < array.length; i++) {
-      array[i].disabled = true;
-      array[i].style.cursor = 'default';
+  var disableInputs = function (inputs) {
+    for (var i = 0; i < inputs.length; i++) {
+      inputs[i].disabled = true;
+      inputs[i].style.cursor = 'default';
     }
   };
 
