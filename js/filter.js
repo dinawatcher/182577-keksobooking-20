@@ -14,9 +14,9 @@
 
     if (typeValue !== 'any') {
       return item.offer.type === typeValue;
-    } else {
-      return window.offer.ads;
     }
+
+    return window.offer.ads;
   };
 
   var filterByPrice = function (item) {
@@ -39,9 +39,9 @@
 
     if (roomsValue !== 'any') {
       return item.offer.rooms === Number(roomsValue);
-    } else {
-      return window.offer.ads;
     }
+
+    return window.offer.ads;
   };
 
   var filterByGuests = function (item) {
@@ -49,9 +49,9 @@
 
     if (guestsValue !== 'any') {
       return item.offer.guests === Number(guestsValue);
-    } else {
-      return window.offer.ads;
     }
+
+    return window.offer.ads;
   };
 
   var filterByFeatures = function (item) {
