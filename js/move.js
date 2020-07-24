@@ -43,7 +43,7 @@
 
       window.map.pinMain.style.left = currentX + 'px';
       window.map.pinMain.style.top = currentY + 'px';
-      window.form.address.value = currentX + ', ' + currentY;
+      window.form.address.value = Math.floor((currentX + window.map.pinSize / 2)) + ', ' + Math.floor(currentY);
 
 
     };
